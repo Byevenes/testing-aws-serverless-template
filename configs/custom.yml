@@ -1,0 +1,34 @@
+cognito:
+  userPoolId:
+    Ref: CognitoUserPool
+  userPoolArn:
+    Fn::GetAtt:
+      - CognitoUserPool
+      - Arn
+
+s3:
+  usersStorageBucketName:
+    Ref: UsersStorageS3Bucket
+
+authorizer:
+  name: Cognito
+  type: COGNITO_USER_POOLS
+  arn: ${self:custom.cognito.userPoolArn}
+
+package:
+  version: ${file(./package.json):version}
+  title: ${file(./package.json):title}
+
+variables: ${file(./configs/variables/${opt:stage}.yml)}
+
+serverless-offline:
+  allowCache: true
+
+prune:
+  automatic: true
+  number: 3
+
+sesTemplates:
+  addStage: true
+  configFile: ./email/templates/ses/exports.js
+  deployHook: after:deploy:deploy

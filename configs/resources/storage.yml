@@ -1,0 +1,29 @@
+Resources:
+  UsersStorageS3Bucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+
+Outputs:
+  UsersStorageS3BucketName:
+    Description: ${self:custom.package.title} Users Storage S3 Bucket Name [${opt:stage}]
+    Value:
+      Ref: UsersStorageS3Bucket
+    Export:
+      Name:
+        Fn::Join:
+          - '-'
+          - - Ref: AWS::StackName
+            - UsersStorageS3BucketName
+
+  UsersStorageS3BucketArn:
+    Description: ${self:custom.package.title} Users Storage S3 Bucket ARN [${opt:stage}]
+    Value:
+      Fn::GetAtt:
+        - UsersStorageS3Bucket
+        - Arn
+    Export:
+      Name:
+        Fn::Join:
+          - '-'
+          - - Ref: AWS::StackName
+            - UsersStorageS3BucketArn

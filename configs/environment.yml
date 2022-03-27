@@ -1,0 +1,6 @@
+NODE_ENV: ${opt:stage}
+DB_URI: ${self:custom.variables.dbUri}
+LOG_LEVEL: ${self:custom.variables.logLevel}
+USERS_STORAGE_BUCKET_NAME: ${self:custom.variables.usersStorageBucketName}
+COGNITO_USER_POOL_ID: ${self:custom.variables.cognitoUserPoolId}
+COGNITO_REGION: ${self:provider.region}
